@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="1200" height="780" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#858A93"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#7DA5C9"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="780" fill="#101113"/>
+
+  <!-- Header -->
+  <text x="40" y="46" fill="#E8E9EB" font-size="22" font-weight="700" letter-spacing="-0.3">StarDewedar — File Upload, Content Inspection &amp; Cloudinary Pipeline</text>
+  <text x="40" y="70" fill="#858A93" font-size="14">Derived from backend/src/middleware/upload.middleware.js, src/utils/{uploadValidation,cloudinaryCleanup}.js, and product/project submodules</text>
+
+  <!-- ==================== LEFT COLUMN: PUBLIC CUSTOMER REQUEST UPLOADS ==================== -->
+  <rect x="40" y="95" width="545" height="645" rx="10" fill="#15171B" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="60" y="124" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">A. PUBLIC REQUEST UPLOADS (QUOTE / VISIT / BOQ)</text>
+
+  <!-- Step 1 -->
+  <rect x="65" y="142" width="495" height="86" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="85" y="166" fill="#E8E9EB" font-size="14" font-weight="700">1. Request Size Cap (limitRequestBodyBytes)</text>
+  <text x="85" y="187" fill="#B6BAC2" font-size="12.5">• Checks Content-Length + counts raw HTTP body stream chunks</text>
+  <text x="85" y="206" fill="#7DA5C9" font-size="12.5">• Quote/Visit: ≤ 11 MB body • BOQ: ≤ 125 MB body (→ 413 if exceeded)</text>
+
+  <line x1="312" y1="228" x2="312" y2="250" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Step 2 -->
+  <rect x="65" y="254" width="495" height="106" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="85" y="278" fill="#E8E9EB" font-size="14" font-weight="700">2. Bounded Memory Storage &amp; Extension/MIME Filter</text>
+  <text x="85" y="299" fill="#B6BAC2" font-size="12.5">• createLimitedMemoryStorage: aborts stream if aggregate cap exceeded</text>
+  <text x="85" y="318" fill="#B6BAC2" font-size="12.5">• Quote/Visit (singleFileUpload): 1 file ≤ 10 MB (.pdf, .jpg, .jpeg, .png)</text>
+  <text x="85" y="337" fill="#B6BAC2" font-size="12.5">• BOQ (boqUpload): ≤ 6 files, 20 MB/file, 120 MB total (.pdf, .xls, .xlsx, .csv)</text>
+
+  <line x1="312" y1="360" x2="312" y2="382" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Step 3 -->
+  <rect x="65" y="386" width="495" height="145" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.8"/>
+  <text x="85" y="410" fill="#E8E9EB" font-size="14" font-weight="700">3. Byte-Content Validation (validateUploadedFile)</text>
+  <text x="85" y="432" fill="#B6BAC2" font-size="12">• PDF: Verifies %PDF- header + %%EOF marker in final 1024 bytes</text>
+  <text x="85" y="451" fill="#B6BAC2" font-size="12">• JPEG/PNG: Magic bytes, rejects APNG (acTL), Sharp decode ≤ 40 MP</text>
+  <text x="85" y="470" fill="#B6BAC2" font-size="12">• XLS: Verifies OLE2/CFB header + non-empty Workbook/Book stream</text>
+  <text x="85" y="489" fill="#B6BAC2" font-size="12">• XLSX: Streaming Yauzl ZIP check (≤1000 entries, ≤100 MB, CRC32, XML parts)</text>
+  <text x="85" y="508" fill="#B6BAC2" font-size="12">• CSV: Fatal UTF-8 TextDecoder + rejects null/control bytes</text>
+
+  <line x1="312" y1="531" x2="312" y2="553" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Step 4 -->
+  <rect x="65" y="557" width="495" height="158" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.6"/>
+  <text x="85" y="582" fill="#E8E9EB" font-size="14" font-weight="700">4. Cloudinary Upload &amp; Best-Effort Rollback Cleanup</text>
+  <text x="85" y="604" fill="#B6BAC2" font-size="12.5">• Streams buffer via cloudinary.uploader.upload_stream (resource_type: 'auto')</text>
+  <text x="85" y="624" fill="#B6BAC2" font-size="12.5">• Validates public_id, resource_type, and secure_url</text>
+  <text x="85" y="644" fill="#7DA5C9" font-size="12.5">• settleCloudinaryUploads (BOQ): destroys partial uploads if any file fails</text>
+  <text x="85" y="664" fill="#7DA5C9" font-size="12.5">• persistWithCloudinaryCleanup: saves secure_url to PostgreSQL;</text>
+  <text x="95" y="683" fill="#B6BAC2" font-size="12">if Prisma create fails, calls cloudinary.uploader.destroy() on uploaded assets</text>
+
+  <!-- ==================== RIGHT COLUMN: ADMIN PRODUCT & PROJECT UPLOADS ==================== -->
+  <rect x="615" y="95" width="545" height="645" rx="10" fill="#15171B" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="635" y="124" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">B. ADMIN CATALOG &amp; PROJECT UPLOADS (PRODUCT / PROJECT)</text>
+
+  <!-- Admin Step 1 -->
+  <rect x="640" y="142" width="495" height="92" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="660" y="166" fill="#E8E9EB" font-size="14" font-weight="700">1. Auth &amp; Permission Guard</text>
+  <text x="660" y="188" fill="#B6BAC2" font-size="12.5">• POST /api/products → auth + requirePermission('catalog:manage')</text>
+  <text x="660" y="208" fill="#B6BAC2" font-size="12.5">• POST /api/projects → auth + requirePermission('projects:manage')</text>
+
+  <line x1="887" y1="234" x2="887" y2="256" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Admin Step 2 -->
+  <rect x="640" y="260" width="495" height="110" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="660" y="284" fill="#E8E9EB" font-size="14" font-weight="700">2. Multer Memory Storage &amp; Legacy Filter</text>
+  <text x="660" y="306" fill="#B6BAC2" font-size="12.5">• multer.memoryStorage() with 10 MB per-file limit</text>
+  <text x="660" y="325" fill="#B6BAC2" font-size="12.5">• legacyFileFilter: .pdf, .jpg, .jpeg, .png (application/pdf, image/jpeg, image/png)</text>
+  <text x="660" y="344" fill="#7DA5C9" font-size="12.5">• Products: upload.fields([images ≤ 5, catalog ≤ 1]) • Projects: upload.array(images ≤ 10)</text>
+
+  <line x1="887" y1="370" x2="887" y2="392" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Admin Step 3 -->
+  <rect x="640" y="396" width="495" height="135" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.8"/>
+  <text x="660" y="420" fill="#E8E9EB" font-size="14" font-weight="700">3. Parent Record Creation &amp; Submodule Cloudinary Stream</text>
+  <text x="660" y="442" fill="#B6BAC2" font-size="12.5">• Creates Product or Project row in PostgreSQL first (obtains parent UUID)</text>
+  <text x="660" y="463" fill="#B6BAC2" font-size="12.5">• Product Images (products/submodules/images/image.service.js):</text>
+  <text x="672" y="481" fill="#7DA5C9" font-size="12">cloudinary.uploader.upload_stream({ resource_type: 'image' })</text>
+  <text x="660" y="501" fill="#B6BAC2" font-size="12.5">• Product Catalog PDF (products/submodules/catalogs/catalog.service.js):</text>
+  <text x="672" y="519" fill="#7DA5C9" font-size="12">cloudinary.uploader.upload_stream({ resource_type: 'auto' })</text>
+
+  <line x1="887" y1="531" x2="887" y2="553" stroke="#7DA5C9" stroke-width="1.6" marker-end="url(#arrow-accent)"/>
+
+  <!-- Admin Step 4 -->
+  <rect x="640" y="557" width="495" height="158" rx="8" fill="#16181D" stroke="#7DA5C9" stroke-width="1.6"/>
+  <text x="660" y="582" fill="#E8E9EB" font-size="14" font-weight="700">4. URL Persistence &amp; Failure Rollback</text>
+  <text x="660" y="605" fill="#B6BAC2" font-size="12.5">• Stores result.secure_url in child tables linked by foreign key:</text>
+  <text x="672" y="625" fill="#7DA5C9" font-size="12.5">- ProductImage (product_id, image_url)</text>
+  <text x="672" y="644" fill="#7DA5C9" font-size="12.5">- ProductCatalog (product_id, title_en, title_ar, file_url)</text>
+  <text x="672" y="663" fill="#7DA5C9" font-size="12.5">- ProjectImage (project_id, image_url)</text>
+  <text x="660" y="686" fill="#B6BAC2" font-size="12">• Product upload failure triggers repo.deleteProduct(productId) (Cascade delete)</text>
+</svg>

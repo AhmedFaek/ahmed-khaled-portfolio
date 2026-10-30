@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+﻿import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -9,14 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#081120",
-        panel: "#0f172a",
-        panelAlt: "#111c33",
-        border: "rgba(148, 163, 184, 0.18)",
-        accent: "#3B82F6"
+        background: "#101113",
+        foreground: "#E8E9EB",
+        accent: "#7DA5C9",
+        border: "rgba(148, 163, 184, 0.18)"
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(59, 130, 246, 0.2), 0 20px 50px rgba(8, 17, 32, 0.45)"
+        glow: "0 0 0 1px rgba(125, 165, 201, 0.18), 0 20px 50px rgba(16, 17, 19, 0.5)"
       },
       backgroundImage: {
         grid: "linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px)"

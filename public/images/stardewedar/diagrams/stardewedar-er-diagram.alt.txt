@@ -1,0 +1,2 @@
+Alt text: Entity-Relationship diagram of StarDewedar's 15 PostgreSQL Prisma models showing primary and foreign keys and cardinalities across User, Category, Product, ProductImage, ProductCatalog, SavedProduct, Project, ProjectImage, QuoteRequest, VisitRequest, BOQRequest, ContactMessage, Conversation, Message, and AnalyticsSession.
+Caption: PostgreSQL database schema (15 Prisma models) with primary/foreign keys and relationship cardinalities.

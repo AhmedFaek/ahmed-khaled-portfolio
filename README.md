@@ -1,8 +1,8 @@
-# Ahmed Khaled Portfolio
+﻿# Ahmed Khaled Portfolio
 
 A single-page personal portfolio built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
 
-The site is fully static and uses content from the CV only. All editable portfolio data is centralized in one file so the UI can be updated without changing component code.
+The site is fully static and uses content from data/portfolio.ts. All editable portfolio data is centralized in one file so the UI can be updated without changing component code.
 
 ## Stack
 
@@ -15,10 +15,10 @@ The site is fully static and uses content from the CV only. All editable portfol
 ## Features
 
 - Single-page smooth-scroll portfolio
-- Dark modern UI with glass-style panels
+- Dark modern UI with editorial panels
 - Sticky navigation
 - Responsive layout for mobile and desktop
-- Featured project highlight
+- Project case-study routes
 - Scroll-in section animations
 - CV download from `public/Ahmed_Khaled_CV.pdf`
 
@@ -29,20 +29,27 @@ app/
   globals.css
   layout.tsx
   page.tsx
+  projects/
+    [slug]/page.tsx
 components/
   fade-in-section.tsx
+  project-case-study.tsx
   section-heading.tsx
 data/
   portfolio.ts
 public/
   Ahmed_Khaled_CV.pdf
+  images/
+    diagrams/.gitkeep
+    hirepilot/.gitkeep
+    stardewedar/.gitkeep
 ```
 
 ## Content Source
 
 All portfolio content lives in:
 
-- [data/portfolio.ts](/D:/Full%20Projects/Portfolio/ahmed-khaled-portfolio/data/portfolio.ts)
+- [data/portfolio.ts](./data/portfolio.ts)
 
 Update this file to change:
 
@@ -51,7 +58,6 @@ Update this file to change:
 - tech stack
 - projects
 - experience
-- certifications
 - contact links
 
 ## Getting Started

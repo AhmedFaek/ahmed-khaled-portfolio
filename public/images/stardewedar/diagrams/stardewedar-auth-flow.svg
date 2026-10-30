@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1080" width="1200" height="1080" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#858A93"/>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#7DA5C9"/>
+    </marker>
+    <marker id="arrow-err" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#D97373"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="1080" fill="#101113"/>
+
+  <!-- Header -->
+  <text x="40" y="46" fill="#E8E9EB" font-size="22" font-weight="700" letter-spacing="-0.3">StarDewedar — Authentication, Token Rotation &amp; RBAC Flow</text>
+  <text x="40" y="70" fill="#858A93" font-size="14">Derived from backend/src/modules/auth/*, backend/src/middleware/{auth,roles}.middleware.js, and backend/src/utils/permissions.js</text>
+
+  <!-- ==================== SECTION 1: ACCOUNT PROVISIONING ==================== -->
+  <rect x="40" y="92" width="1120" height="185" rx="10" fill="#15171B" stroke="#858A93" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="60" y="118" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">1. ACCOUNT PROVISIONING (ADMIN vs. PUBLIC REGISTRATION)</text>
+
+  <!-- Admin Creation Row -->
+  <rect x="60" y="134" width="210" height="56" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="165" y="158" fill="#E8E9EB" font-size="14" font-weight="600" text-anchor="middle">Super Admin</text>
+  <text x="165" y="177" fill="#7DA5C9" font-size="12" text-anchor="middle">role = super_admin</text>
+
+  <line x1="270" y1="162" x2="460" y2="162" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+  <text x="365" y="148" fill="#E8E9EB" font-size="12" font-weight="600" text-anchor="middle">POST /api/auth/create-user</text>
+  <text x="365" y="180" fill="#858A93" font-size="12" text-anchor="middle">auth + requirePermission(users:manage)</text>
+
+  <rect x="470" y="132" width="665" height="60" rx="8" fill="#181C22" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="490" y="156" fill="#E8E9EB" font-size="14" font-weight="600">Create Staff / Admin Account (No Public Admin Registration)</text>
+  <text x="490" y="177" fill="#B6BAC2" font-size="13">Roles: super_admin | catalog_manager | sales_support_manager • Auto-verified (email_verified = true)</text>
+
+  <!-- Public Customer Registration Row -->
+  <rect x="60" y="206" width="210" height="56" rx="8" fill="#181A1F" stroke="#858A93" stroke-width="1.5"/>
+  <text x="165" y="230" fill="#E8E9EB" font-size="14" font-weight="600" text-anchor="middle">Public Visitor</text>
+  <text x="165" y="249" fill="#858A93" font-size="12" text-anchor="middle">Unauthenticated</text>
+
+  <line x1="270" y1="234" x2="460" y2="234" stroke="#858A93" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="365" y="224" fill="#E8E9EB" font-size="12" font-weight="600" text-anchor="middle">POST /api/auth/register</text>
+  <text x="365" y="252" fill="#858A93" font-size="12" text-anchor="middle">Disposable + DNS MX Check</text>
+
+  <rect x="470" y="204" width="335" height="58" rx="8" fill="#181A1F" stroke="#858A93" stroke-width="1.5"/>
+  <text x="488" y="228" fill="#E8E9EB" font-size="13.5" font-weight="600">Create Customer (role = customer)</text>
+  <text x="488" y="248" fill="#858A93" font-size="12.5">email_verified = false • Email 6-digit code (15m TTL)</text>
+
+  <line x1="805" y1="233" x2="905" y2="233" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+  <text x="855" y="223" fill="#7DA5C9" font-size="11.5" font-weight="600" text-anchor="middle">/verify-email</text>
+
+  <rect x="915" y="204" width="220" height="58" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="1025" y="228" fill="#E8E9EB" font-size="13.5" font-weight="600" text-anchor="middle">Verify SHA-256 Code</text>
+  <text x="1025" y="248" fill="#7DA5C9" font-size="12.5" text-anchor="middle">email_verified = true + Tokens</text>
+
+  <!-- ==================== SECTION 2: LOGIN & TOKEN ISSUANCE ==================== -->
+  <rect x="40" y="297" width="1120" height="190" rx="10" fill="#15171B" stroke="#858A93" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="60" y="323" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">2. LOGIN &amp; TOKEN ISSUANCE (POST /api/auth/login — Rate Limited 10 / 15m)</text>
+
+  <rect x="60" y="352" width="205" height="72" rx="8" fill="#181A1F" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="162" y="382" fill="#E8E9EB" font-size="14" font-weight="600" text-anchor="middle">Client Login Request</text>
+  <text x="162" y="403" fill="#858A93" font-size="13" text-anchor="middle">{ email, password }</text>
+
+  <line x1="265" y1="388" x2="335" y2="388" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+  <rect x="345" y="346" width="285" height="84" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="487" y="372" fill="#E8E9EB" font-size="14" font-weight="600" text-anchor="middle">auth.service.login()</text>
+  <text x="487" y="393" fill="#B6BAC2" font-size="12.5" text-anchor="middle">1. findUserByEmail + bcrypt.compare()</text>
+  <text x="487" y="412" fill="#B6BAC2" font-size="12.5" text-anchor="middle">2. Check customer email_verified == true</text>
+
+  <!-- Login Outcomes -->
+  <!-- 401 -->
+  <path d="M 487 430 L 487 460 L 665 460" fill="none" stroke="#D97373" stroke-width="1.5" marker-end="url(#arrow-err)"/>
+  <rect x="675" y="438" width="215" height="38" rx="6" fill="#26181A" stroke="#D97373" stroke-width="1.5"/>
+  <text x="782" y="462" fill="#E8E9EB" font-size="13" font-weight="600" text-anchor="middle">401 Invalid credentials</text>
+
+  <!-- 403 -->
+  <path d="M 630 412 L 905 412 L 905 438" fill="none" stroke="#D97373" stroke-width="1.5" marker-end="url(#arrow-err)"/>
+  <rect x="905" y="438" width="230" height="38" rx="6" fill="#26181A" stroke="#D97373" stroke-width="1.5"/>
+  <text x="1020" y="462" fill="#E8E9EB" font-size="13" font-weight="600" text-anchor="middle">403 Unverified Customer</text>
+
+  <!-- 200 Valid -->
+  <line x1="630" y1="372" x2="695" y2="372" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+  <rect x="705" y="328" width="430" height="90" rx="8" fill="#181C22" stroke="#7DA5C9" stroke-width="1.8"/>
+  <text x="725" y="352" fill="#E8E9EB" font-size="14" font-weight="700">200 OK — Issue Tokens &amp; Persist Refresh Hash</text>
+  <text x="725" y="373" fill="#7DA5C9" font-size="13">• accessToken: JWT (15m TTL, payload: { userId, role, name })</text>
+  <text x="725" y="392" fill="#7DA5C9" font-size="13">• refreshToken: JWT (7d TTL, payload: { userId })</text>
+  <text x="725" y="410" fill="#B6BAC2" font-size="12.5">• Store bcrypt.hash(refreshToken, 10) in User.hashed_refresh_token</text>
+
+  <!-- ==================== SECTION 3: PROTECTED REQUEST & RBAC ==================== -->
+  <rect x="40" y="507" width="1120" height="260" rx="10" fill="#15171B" stroke="#858A93" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="60" y="533" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">3. PROTECTED REQUEST VERIFICATION &amp; RBAC ENFORCEMENT (401 vs. 403)</text>
+
+  <rect x="60" y="565" width="215" height="78" rx="8" fill="#181A1F" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="167" y="594" fill="#E8E9EB" font-size="14" font-weight="600" text-anchor="middle">Protected API Request</text>
+  <text x="167" y="614" fill="#7DA5C9" font-size="12.5" text-anchor="middle">Authorization: Bearer &lt;JWT&gt;</text>
+
+  <line x1="275" y1="604" x2="340" y2="604" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+  <!-- auth.middleware.js -->
+  <rect x="350" y="555" width="295" height="98" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="497" y="580" fill="#E8E9EB" font-size="14" font-weight="700" text-anchor="middle">auth.middleware.js</text>
+  <text x="497" y="601" fill="#B6BAC2" font-size="12.5" text-anchor="middle">1. jwt.verify(token, JWT_SECRET)</text>
+  <text x="497" y="620" fill="#B6BAC2" font-size="12.5" text-anchor="middle">2. Query DB: userRepo.findUserById(userId)</text>
+  <text x="497" y="639" fill="#7DA5C9" font-size="12" text-anchor="middle">req.user.role always comes live from DB</text>
+
+  <!-- 401 from auth.middleware -->
+  <line x1="497" y1="653" x2="497" y2="695" stroke="#D97373" stroke-width="1.5" marker-end="url(#arrow-err)"/>
+  <rect x="350" y="703" width="295" height="50" rx="6" fill="#26181A" stroke="#D97373" stroke-width="1.5"/>
+  <text x="497" y="725" fill="#E8E9EB" font-size="13.5" font-weight="700" text-anchor="middle">401 Unauthorized</text>
+  <text x="497" y="743" fill="#B6BAC2" font-size="12" text-anchor="middle">Missing / Expired JWT or User Deleted in DB</text>
+
+  <line x1="645" y1="604" x2="710" y2="604" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+  <!-- roles.middleware.js -->
+  <rect x="720" y="555" width="265" height="98" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="852" y="580" fill="#E8E9EB" font-size="14" font-weight="700" text-anchor="middle">roles.middleware.js</text>
+  <text x="852" y="601" fill="#B6BAC2" font-size="12.5" text-anchor="middle">requireRole(...roles)</text>
+  <text x="852" y="620" fill="#B6BAC2" font-size="12.5" text-anchor="middle">requirePermission(permission)</text>
+  <text x="852" y="639" fill="#7DA5C9" font-size="12" text-anchor="middle">Checks ROLE_PERMISSIONS[req.user.role]</text>
+
+  <!-- 403 from roles.middleware -->
+  <line x1="852" y1="653" x2="852" y2="695" stroke="#D97373" stroke-width="1.5" marker-end="url(#arrow-err)"/>
+  <rect x="720" y="703" width="265" height="50" rx="6" fill="#26181A" stroke="#D97373" stroke-width="1.5"/>
+  <text x="852" y="725" fill="#E8E9EB" font-size="13.5" font-weight="700" text-anchor="middle">403 Forbidden</text>
+  <text x="852" y="743" fill="#B6BAC2" font-size="12" text-anchor="middle">Authenticated, but role lacks permission</text>
+
+  <!-- Permitted -> Controller -->
+  <line x1="985" y1="604" x2="1025" y2="604" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+  <rect x="1035" y="565" width="105" height="78" rx="8" fill="#18261E" stroke="#68B388" stroke-width="1.5"/>
+  <text x="1087" y="595" fill="#E8E9EB" font-size="13.5" font-weight="700" text-anchor="middle">Controller</text>
+  <text x="1087" y="614" fill="#68B388" font-size="12" text-anchor="middle">→ Service</text>
+  <text x="1087" y="631" fill="#68B388" font-size="12" text-anchor="middle">→ Prisma DB</text>
+
+  <!-- ==================== SECTION 4: REFRESH TOKEN ROTATION ==================== -->
+  <rect x="40" y="787" width="1120" height="255" rx="10" fill="#15171B" stroke="#858A93" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="60" y="813" fill="#7DA5C9" font-size="14" font-weight="700" letter-spacing="0.8">4. ACCESS TOKEN EXPIRY &amp; REFRESH TOKEN ROTATION (POST /api/auth/refresh)</text>
+
+  <!-- Connector from 401 / Expiry to Refresh -->
+  <rect x="60" y="845" width="245" height="86" rx="8" fill="#181A1F" stroke="#858A93" stroke-width="1.5"/>
+  <text x="182" y="872" fill="#E8E9EB" font-size="13.5" font-weight="600" text-anchor="middle">Access Token Expired (15m)</text>
+  <text x="182" y="892" fill="#858A93" font-size="12" text-anchor="middle">Preemptive (&lt;120s Admin / &lt;10s Web)</text>
+  <text x="182" y="911" fill="#7DA5C9" font-size="12" text-anchor="middle">POST /api/auth/refresh { refreshToken }</text>
+
+  <line x1="305" y1="888" x2="365" y2="888" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+  <rect x="375" y="840" width="320" height="96" rx="8" fill="#1A222D" stroke="#7DA5C9" stroke-width="1.5"/>
+  <text x="535" y="866" fill="#E8E9EB" font-size="14" font-weight="700" text-anchor="middle">auth.service.refreshToken()</text>
+  <text x="535" y="887" fill="#B6BAC2" font-size="12.5" text-anchor="middle">1. jwt.verify(rawRefreshToken, JWT_REFRESH_SECRET)</text>
+  <text x="535" y="906" fill="#B6BAC2" font-size="12.5" text-anchor="middle">2. Load User &amp; check hashed_refresh_token != null</text>
+  <text x="535" y="925" fill="#B6BAC2" font-size="12.5" text-anchor="middle">3. bcrypt.compare(rawToken, hashed_refresh_token)</text>
+
+  <!-- Invalid Refresh Token -> 401 -->
+  <line x1="535" y1="936" x2="535" y2="972" stroke="#D97373" stroke-width="1.5" marker-end="url(#arrow-err)"/>
+  <rect x="375" y="980" width="320" height="46" rx="6" fill="#26181A" stroke="#D97373" stroke-width="1.5"/>
+  <text x="535" y="1001" fill="#E8E9EB" font-size="13" font-weight="700" text-anchor="middle">401 Invalid refresh token</text>
+  <text x="535" y="1018" fill="#B6BAC2" font-size="11.5" text-anchor="middle">Expired, Logged Out (null), or Replayed Old Token → Clear Storage</text>
+
+  <!-- Valid Refresh -> Rotate -->
+  <line x1="695" y1="888" x2="755" y2="888" stroke="#7DA5C9" stroke-width="1.5" marker-end="url(#arrow-accent)"/>
+
+  <rect x="765" y="835" width="370" height="106" rx="8" fill="#181C22" stroke="#7DA5C9" stroke-width="1.8"/>
+  <text x="785" y="861" fill="#E8E9EB" font-size="14" font-weight="700">Rotate Token Pair &amp; Invalidate Old Token</text>
+  <text x="785" y="882" fill="#7DA5C9" font-size="13">• Issue new accessToken (15m) + new refreshToken (7d)</text>
+  <text x="785" y="901" fill="#7DA5C9" font-size="13">• Overwrite User.hashed_refresh_token with new bcrypt hash</text>
+  <text x="785" y="920" fill="#B6BAC2" font-size="12.5">• Old refresh token immediately fails bcrypt.compare() on replay</text>
+
+  <!-- Logout note -->
+  <rect x="765" y="960" width="370" height="66" rx="8" fill="#181A1F" stroke="#858A93" stroke-width="1.2"/>
+  <text x="785" y="983" fill="#E8E9EB" font-size="13" font-weight="600">Session Revocation (Logout / Password Change / Reset)</text>
+  <text x="785" y="1002" fill="#858A93" font-size="12">Sets User.hashed_refresh_token = null in PostgreSQL,</text>
+  <text x="785" y="1018" fill="#858A93" font-size="12">preventing any further token refreshes across sessions.</text>
+</svg>
