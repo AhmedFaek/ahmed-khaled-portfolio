@@ -6,9 +6,11 @@ export type NavItem = {
 export type Project = {
   name: string;
   year: string;
+  description: string;
   stack: string[];
   bullets: string[];
   githubUrl: string;
+  demoUrl?: string;
   featured?: boolean;
 };
 
@@ -58,13 +60,13 @@ export const portfolio: PortfolioData = {
   title: "Backend Engineer",
   location: "Cairo, Egypt",
   summary:
-    "Backend Engineer specializing in scalable APIs, authentication systems, real-time communication, and AI-powered backend architectures. Proficient in FastAPI, Django, Node.js, PostgreSQL, and Redis with hands-on experience in LangGraph orchestration, RAG pipelines, and WebSocket streaming.",
+    "Backend Engineer focused on backend systems, APIs, databases, authentication, and AI-powered software. I work across backend architecture, scalable service design, and applied AI workflows.",
   heroTagline:
-    "Backend Engineer specializing in scalable APIs, authentication systems, real-time communication, and AI-powered backend architectures.",
+    "Building backend systems that make software work.",
   about: [
-    "Backend Engineer with hands-on experience building scalable APIs, authentication systems, and real-time backend services.",
-    "Proficient in FastAPI, Django, Node.js, PostgreSQL, and Redis, with practical work across LangGraph orchestration, RAG pipelines, and WebSocket streaming.",
-    "Currently completing a Bachelor of Engineering in Computer Engineering at Ain Shams University."
+    "I'm Ahmed Khaled, a Computer Engineering graduate from Ain Shams University focused on backend engineering, system architecture, databases, and AI-powered applications.",
+    "My work centers on backend services, API design, authentication systems, database-driven applications, and software that integrates AI features in practical business workflows.",
+    "I also have full-stack experience and can work across frontend and backend when a project requires it."
   ],
   nav: [
     { label: "About", href: "#about" },
@@ -79,33 +81,32 @@ export const portfolio: PortfolioData = {
     "TypeScript",
     "Java",
     "C++",
-    "FastAPI",
-    "Django",
-    "Django REST Framework",
     "Node.js",
     "Express.js",
+    "FastAPI",
+    "Django",
+    "REST APIs",
+    "JWT",
+    "OAuth",
+    "RBAC",
+    "WebSockets",
     "PostgreSQL",
     "MySQL",
     "MongoDB",
     "Redis",
-    "RESTful APIs",
-    "JWT Authentication",
-    "Google OAuth",
-    "Role-Based Access Control (RBAC)",
-    "WebSockets",
     "LangGraph",
-    "RAG Pipelines",
+    "RAG",
+    "Embeddings",
     "Vector Search",
-    "Whisper STT",
-    "Embedding Models",
     "LLM Integration",
     "React",
     "Next.js",
     "Tailwind CSS",
     "Git",
     "GitHub",
-    "CI/CD",
-    "Postman"
+    "Docker",
+    "Postman",
+    "CI/CD"
   ],
   opportunityBadge: "Currently open to opportunities",
   contacts: {
@@ -114,21 +115,21 @@ export const portfolio: PortfolioData = {
     github: "https://github.com/AhmedFaek"
   },
   education: {
-    institution: "Ain Shams University – Faculty of Engineering",
+    institution: "Ain Shams University — Faculty of Engineering",
     degree: "Bachelor of Engineering in Computer Engineering",
     dates: "Sep 2021 – Jun 2026",
     location: "Cairo, Egypt"
   },
   experience: [
     {
-      role: "Freelance Backend / Full Stack Engineer",
+      role: "Freelance Backend / Full-Stack Engineer",
       company: "Self-employed",
       location: "Remote",
-      dates: "Jan 2025 – Present",
+      dates: "Jun 2025 – Present",
       bullets: [
-        "Designed and delivered scalable RESTful APIs and backend services using FastAPI, Django, and Node.js integrated with PostgreSQL and MongoDB for production web applications.",
-        "Implemented JWT authentication, Google OAuth, refresh token revocation, and role-based access control (RBAC) across multiple client projects.",
-        "Built real-time communication features using WebSockets for live data streaming and event-driven workflows."
+        "Designed and delivered RESTful APIs and backend services using FastAPI, Django, and Node.js.",
+        "Worked with PostgreSQL and MongoDB for data modeling and application persistence.",
+        "Implemented authentication systems using JWT, Google OAuth, refresh-token revocation, and RBAC."
       ]
     },
     {
@@ -137,44 +138,48 @@ export const portfolio: PortfolioData = {
       location: "Cairo, Egypt",
       dates: "Jul 2024 – Sep 2024",
       bullets: [
-        "Analyzed network vulnerabilities and applied cybersecurity concepts covering HTTP/HTTPS protocols, secure authentication, and client-server communication."
+        "Studied network vulnerabilities and secure system design.",
+        "Worked with HTTP/HTTPS, authentication, and client-server communication concepts."
       ]
     }
   ],
   projects: [
+   {
+  name: "StarDewedar",
+  year: "2026",
+  description:
+    "A full-stack corporate management platform for a general contracting and engineering company, combining a public-facing website with a role-based administrative dashboard.",
+  stack: [
+    "Node.js",
+    "Express.js",
+    "PostgreSQL",
+    "Prisma",
+    "React",
+    "JWT",
+    "Nodemailer"
+  ],
+  bullets: [
+    "Designed a modular REST API using Controller-Service-Repository architecture to separate HTTP handling, business logic, and data access.",
+    "Designed the relational database schema with PostgreSQL and Prisma, implementing JWT authentication, refresh-token rotation, and role-based access control.",
+    "Developed product, category, and project management modules alongside dedicated Quote, BOQ, Site Visit, and contact request workflows.",
+    "Implemented request validation, secure file-upload handling, and automated email notifications using Nodemailer."
+  ],
+  githubUrl: "https://github.com/AhmedFaek/StarDewedar",
+  featured: true
+},
     {
-      name: "AI-Driven HR Support System",
+      name: "HirePilot",
       year: "2026",
-      stack: ["FastAPI", "LangGraph", "PostgreSQL", "React"],
+      description:
+        "An AI-driven recruitment platform designed to streamline candidate screening, interview management, and recruiter workflows.",
+      stack: ["Python", "FastAPI", "LangGraph", "PostgreSQL", "Redis", "ChromaDB", "React"],
       bullets: [
-        "Architected a modular FastAPI backend with LangGraph workflow orchestration for candidate screening, interview scheduling, and AI-powered evaluation pipelines.",
-        "Built a real-time interview processing system using WebSockets and Whisper speech-to-text for live transcript streaming and post-interview scoring.",
-        "Engineered a RAG-based HR assistant with vector similarity search over CVs and transcripts; integrated embedding models and LLM scoring to rank candidates against job requirements."
+        "Architected a modular asynchronous FastAPI backend with layered service boundaries and role-aware access control.",
+        "Built LangGraph workflows for candidate evaluation, semantic retrieval over CVs and transcripts, and real-time interview support using self-hosted Whisper and WebSockets.",
+        "Integrated JWT refresh-token rotation, Google OAuth, Google Calendar and Meet workflows, and candidate follow-up question generation driven by RAG pipelines and embeddings."
       ],
       githubUrl: "https://github.com/mohamedelhelaly-ctrl/Incorta-HR.git",
-      featured: true
-    },
-    {
-      name: "Corporate Website & Admin System",
-      year: "2026",
-      stack: ["React", "Node.js", "PostgreSQL", "Prisma"],
-      bullets: [
-        "Developed a full-stack corporate platform with modular controller/service/repository architecture.",
-        "Built admin APIs for product, project, and customer request management.",
-        "Integrated Nodemailer notifications for operational workflows."
-      ],
-      githubUrl: "https://github.com/AhmedFaek/StarDewedar.git"
-    },
-    {
-      name: "E-Commerce Platform",
-      year: "2024",
-      stack: ["Node.js", "MongoDB", "React"],
-      bullets: [
-        "Built backend services for user accounts, shopping cart, and order workflows.",
-        "Implemented JWT authentication for secure user access.",
-        "Added secure password handling across the platform."
-      ],
-      githubUrl: "https://github.com/AhmedFaek/Sports-More.git"
+      demoUrl: "https://drive.google.com/drive/u/0/mobile/folders/1Kr82_Q16f4wAnulmP3Ly2wtDhn6aD8ke?usp=drive_link"
     }
   ],
   certifications: [

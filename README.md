@@ -20,7 +20,7 @@ The site is fully static and uses content from the CV only. All editable portfol
 - Responsive layout for mobile and desktop
 - Featured project highlight
 - Scroll-in section animations
-- CV download from `public/cv.pdf`
+- CV download from `public/Ahmed_Khaled_CV.pdf`
 
 ## Project Structure
 
@@ -35,7 +35,7 @@ components/
 data/
   portfolio.ts
 public/
-  cv.pdf
+  Ahmed_Khaled_CV.pdf
 ```
 
 ## Content Source
@@ -82,7 +82,7 @@ npm run lint
 
 ## Notes
 
-- The portfolio links to the CV file at `public/cv.pdf`.
+- The portfolio links to the CV file at `public/Ahmed_Khaled_CV.pdf`.
 - The app uses `output: "export"` in `next.config.mjs`.
 - No CMS, database, or API calls are used.
 
